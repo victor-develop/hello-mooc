@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    background: black;
+    margin: auto auto;
+}
+html {
+    height: 100%;
+    height: 100%;
+}
+#faceCalibration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.95);
+}
+#faceCalibration span.close {
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+}
+.post-calibration-canvas{
+    display: none;
+}
+
+#calibration_canvas{
+    display: none;
+}
+
+.faceCalibration-tips{
+    color:white;
+}
