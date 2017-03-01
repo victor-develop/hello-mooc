@@ -8,6 +8,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
+var events = require('events');
 
 //
 // ## SimpleServer `SimpleServer(obj)`
@@ -25,9 +26,12 @@ router.use(bodyParser.json()); // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 router.post("/post_user_gaze_video", function (request, response) {
+
   var video_id = request.body.video_id;
   var user_id = request.body.user_id;
   var gazes = JSON.parse(request.body.gazes);
+  
+  console.log(gazes);
 
 
   MongoClient.connect(db_url, function(err, db) {
@@ -53,25 +57,67 @@ router.post("/post_user_gaze_video", function (request, response) {
 })
 
 router.get("/get_all_gaze_video", function (request, response) {
-  var video_id = request.query.video_id;
+  var video_id = request.query.video_id+"";
   var all_gaze = [];
+  
+  var eventEmitter = new events.EventEmitter();  
+  
+  var all_gaze = {};
 
   MongoClient.connect(db_url, function(err, db) {
     db.collection("videos").findOne({"video_id": video_id}, function (err, video) {
-      for (var time = 1; time <= video.length; time++) {
-        db.collection("all_gaze_frames").findOne({"video_id": video_id, "time": time}, function (err, gaze_frame) {
-          all_gaze[time] = {
-            "time": time,
-            "gazetrack": gaze_frame ? gaze_frame.gazetrack : []
-          }
-        })
+      
+      if (!(video && video.length)){
+        return response.status(200).send("No video found");
       }
-      response.send(JSON.stringify({
-        "video_id": video_id,
-        "gazetrack": all_gaze
-      }))
+
+      eventEmitter.on('foundOne',function(time,frame){
+        all_gaze[time] = frame;
+        if (time == video.length){
+          eventEmitter.emit('finish');
+        }
+      });
+      
+      eventEmitter.on('finish',function(){
+          return response.send(JSON.stringify({
+            "video_id": video_id,
+            "gazetrack": all_gaze
+          }))      
+      });      
+      
+      startSearch();
+      
+      
+      //-------------------------------------------
+      
+      function startSearch(){
+        make_numbers(video.length).map(findOneFrame);
+      }      
+      
+      function findOneFrame(time){
+          return db.collection("all_gaze_frames").findOne({"video_id": video_id,"time":time }).
+          then(function(gaze_frame){
+            var frame = {
+              "time": time,
+              "gazetrack": gaze_frame ? gaze_frame.gazetrack : []
+            }
+            eventEmitter.emit('foundOne',time,frame);
+          }).
+          catch(function(err){
+            console.log(err);
+          });
+      }
+
+
+      //create an array from 1 to N
+      function make_numbers(N){
+        return Array.apply(null, {length: N}).map(function(value, index){
+          return index + 1;
+        });
+      }
+      
     });
-    db.close();
+    
   });
 })
 
