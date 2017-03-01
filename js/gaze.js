@@ -49,7 +49,7 @@ var Gaze = function(context, player) {
     thisGaze.save = function() {
         $.ajax({
             type: "POST",
-            url: "https://server2-kvovictor.c9users.io/post_user_gaze_video/",
+            url: "post_user_gaze_video",
             data: {
                 video_id: "1",
                 user_id: "1",
