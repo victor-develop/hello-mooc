@@ -15,7 +15,9 @@
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "font-awesome": "^4.7.0",
+    "heatmap.js": "^2.0.5",
     "jquery": "^3.1.1",
+    "microevent": "^1.0.0",
     "mongodb": "^2.2.24",
     "webgazer": "git+https://github.com/brownhci/WebGazer.git"
   }
