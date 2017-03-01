@@ -2,11 +2,20 @@ var context = new Context();
 context.init();
 context.showFaceCalibration();
 
+
+document.getElementById("my-video").addEventListener("FitSize.Finish",function(){
+    
+})
+
 var player = new Player("my-video", 'videos/session_01.mp4', {
-    width:'100%'
+    width: '100%'
 });
 
-window.gaze = new Gaze(context, player);
+player.
+isVideoReady().
+then(function() {
+    window.gaze = new Gaze(context, player);
+})
 
 var postCalibrate = function(){
     $(".post-calibration-canvas").show();
