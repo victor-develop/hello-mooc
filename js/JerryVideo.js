@@ -72,7 +72,7 @@
                     var video_width = original_video.videoWidth;
                     var video_height = original_video.videoHeight;
 
-                    function getWidth() {
+                    function getFitSize() {
                         //max width case
                         var trail_width = Math.round(max_height * video_width / video_height);
                         var trail_height = Math.round(max_width * video_height / video_width);
@@ -84,17 +84,19 @@
                         }
 
                         if (trail_height <= max_height) {
-                            return max_width;
+                            return {width:max_width, height:trail_height};
                         }
 
                         if (trail_width <= max_width) {
-                            return trail_width;
+                            return {width:trail_width, height:max_height};
                         }
 
                         throw "cannot find a suitable width";
                     }
 
-                    original_video.width = getWidth();
+                    var fitSize = getFitSize();
+                    original_video.width = fitSize.width;
+                    original_video.height = fitSize.height;
 
                     original_video.style.paddingLeft = Math.round((max_width - original_video.width) / 2) + 'px';
                     
@@ -113,6 +115,34 @@
 
                 original_video.appendChild(source);
 
+            }
+        }
+        
+        if(!JerryVideo.CoordTranslator){
+            JerryVideo.CoordTranslator = function(screen, video){
+                var self = this;
+                var screen_height = screen.height;     console.log("screen_height "+screen_height);
+                var screen_width = screen.width;       console.log("screen_width "+screen_width);
+                var video_height = video.height;       console.log("video_height "+video_height);
+                var video_width = video.width;         console.log("video_width "+video_width);
+                
+                var screenToVideoScale = Math.min((screen_height)/(video_height), (screen_width)/(video_width));  
+                console.log("(screen_height)/(video_height) "+(screen_height)/(video_height) + "(screen_width)/(video_width) "+(screen_width)/(video_width));
+                console.log("Math.min "+screenToVideoScale);
+                
+                self.screenToVideo = function(xy_obj){
+                    return {
+                        x: (xy_obj.x - (screen_width - screenToVideoScale * video_width) / 2.0) / screenToVideoScale,
+                        y: (xy_obj.y - (screen_height - screenToVideoScale * video_height) / 2.0) / screenToVideoScale
+                    }                    
+                }
+                
+                self.videoToScreen = function(xy_obj){
+                    return {
+                        x: xy_obj.x*screenToVideoScale + (screen_width - screenToVideoScale*video_width)/2.0,
+                        y: xy_obj.y*screenToVideoScale + (screen_height - screenToVideoScale*video_height)/2.0
+                    }
+                }
             }
         }
 
