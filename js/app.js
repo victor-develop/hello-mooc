@@ -3,8 +3,12 @@ context.init();
 context.showFaceCalibration();
 
 
-document.getElementById("my-video").addEventListener("FitSize.Finish",function(){
-    
+document.getElementById("my-video").addEventListener("ended",function(e){
+        if(window.gaze){
+            window.gaze.save().then(function(){
+               alert("Success fully save! You are fine to leave now"); 
+            });
+        }
 })
 
 var player = new Player("my-video", 'videos/session_01.mp4', {

@@ -39,17 +39,17 @@ var Gaze = function(context, player) {
     setTimeout(saveGaze, 10);
     thisGaze.save = function() {
         console.log(thisGaze.series);
-        $.ajax({
+        return $.ajax({
             type: "POST",
             url: "post_user_gaze_video",
             data: {
                 video_id: "1",
                 user_id: "1",
                 gazes: JSON.stringify(thisGaze.series)
-            },
-            success: function(response) {
-                console.log(response);
             }
-        });
+        }).then(function(response) {
+            console.log(response);
+            return response;
+        })
     }
 }

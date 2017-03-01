@@ -18,6 +18,8 @@
                 
                 JerryVideo.fitVideoIntoBox(original_video,targetVideo);
                 
+                JerryVideo.makeNextFrameBroadcast(original_video,1);
+                
                 
                 this_player.isVideoReady = function(){
                     var def = $.Deferred();
