@@ -4,7 +4,10 @@ window.onload = function() {
 	video.controls = false;
 	video.addEventListener("FitSize.Finish", OnVideoReady);
 
-	JerryVideo.fitVideoIntoBox(video, '/videos/session_01.mp4');
+	var video_source = "/videos/session_01.mp4";
+	video_source = "https://cdn.getforge.com/dev-umac.getforge.io/1488429681/media/dna_fix.mp4";
+
+	JerryVideo.fitVideoIntoBox(video, video_source);
 
 	var center_play_button = new Vue({
 		el: "#center_play_button",
