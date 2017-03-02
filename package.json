@@ -8,10 +8,8 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "video.js": "^5.16.0"
-  },
   "dependencies": {
+    "video.js": "^5.16.0"
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "font-awesome": "^4.7.0",
