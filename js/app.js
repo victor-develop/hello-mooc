@@ -11,8 +11,10 @@ document.getElementById("my-video").addEventListener("ended",function(e){
         }
 })
 
+
 var video_source = 'videos/session_01.mp4';
-video_source = "https://cdn.getforge.com/dev-umac.getforge.io/1488429681/media/dna_fix.mp4";
+video_source = "https://cdn.getforge.com/dev-umac.getforge.io/1488441707/media/dna_fix.mp4";
+
 
 var player = new Player("my-video", video_source, {
     width: '100%'
