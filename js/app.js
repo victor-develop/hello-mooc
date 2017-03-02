@@ -11,7 +11,9 @@ document.getElementById("my-video").addEventListener("ended",function(e){
         }
 })
 
-var player = new Player("my-video", 'videos/session_01.mp4', {
+var video_source = "https://cdn.getforge.com/dev-umac.getforge.io/1488441707/media/dna_fix.mp4";
+
+var player = new Player("my-video", video_source, {
     width: '100%'
 });
 
