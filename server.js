@@ -62,7 +62,7 @@ router.get("/get_all_gaze_video", function (request, response) {
   
   var eventEmitter = new events.EventEmitter();  
   
-  var all_gaze = {};
+  var all_gaze;
 
   MongoClient.connect(db_url, function(err, db) {
     db.collection("videos").findOne({"video_id": video_id}, function (err, video) {
@@ -70,11 +70,18 @@ router.get("/get_all_gaze_video", function (request, response) {
       if (!(video && video.length)){
         return response.status(200).send("No video found");
       }
+      
+      var all_gaze_count =make_numbers(video.length).map(function(number){
+        return {time:number, arrive:false}
+      });
+      
+      var frames_count = 0;
 
       eventEmitter.on('foundOne',function(time,frame){
         all_gaze[time] = frame;
-        if (time == video.length){
-          eventEmitter.emit('finish');
+        frames_count++;
+        if(frames_count == video.length){
+           eventEmitter.emit('finish');
         }
       });
       
