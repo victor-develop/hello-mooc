@@ -20,6 +20,7 @@ var router = express();
 var server = http.createServer(router);
 
 var db_url = 'mongodb://localhost:27017/HELLO_MOOC';
+db_url = "mongodb://hello:hello@ds113630.mlab.com:13630/hello_mooc"
 
 router.use(express.static(path.resolve(__dirname, './')));
 router.use(bodyParser.json()); // for parsing application/json
