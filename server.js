@@ -31,7 +31,7 @@ router.post("/post_user_gaze_video", function (request, response) {
 
   var video_id = request.body.video_id;
   var user_id = request.body.user_id;
-  var gazes = request.body.gazes;
+  var gazes = JSON.parse(request.body.gazes);
   
   console.log(gazes);
 
