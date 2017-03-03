@@ -22,9 +22,10 @@ var server = http.createServer(router);
 var db_url = 'mongodb://localhost:27017/HELLO_MOOC';
 db_url = "mongodb://hello:hello@ds113630.mlab.com:13630/hello_mooc"
 
+
 router.use(express.static(path.resolve(__dirname, './')));
-router.use(bodyParser.json()); // for parsing application/json
-router.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+router.use(bodyParser.json({limit: '50mb'})); // for parsing application/json
+router.use(bodyParser.urlencoded({ limit: '50mb',extended: true })); // for parsing application/x-www-form-urlencoded
 
 router.post("/post_user_gaze_video", function (request, response) {
 
