@@ -3,8 +3,8 @@ var Gaze = function(context, player) {
     thisGaze.prev = null;
     thisGaze.series = [];
     
-    var screen_width = window.innerWidth * 0.98;
-    var screen_height = window.innerHeight * 0.98;
+    var screen_width = window.innerWidth * 0.999999;
+    var screen_height = window.innerHeight * 0.999999;
 
     var CoordTranslator = new JerryVideo.CoordTranslator({
             width:screen_width,
