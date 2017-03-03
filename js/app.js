@@ -35,7 +35,7 @@ var postFaceCalibrate = function(){
     calibration_canvas.style.display = 'initial';
     calibration_canvas.width = window.innerWidth;
     calibration_canvas.height = window.innerHeight;
-    Calibrator(calibration_canvas,1,3);
+    Calibrator(calibration_canvas,6,5);
     calibration_canvas.addEventListener("calibration.finish",function(){
         calibration_canvas.style.display = 'none';
         postCalibrate();
