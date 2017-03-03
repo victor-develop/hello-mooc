@@ -99,6 +99,7 @@
                     original_video.height = fitSize.height;
 
                     original_video.style.paddingLeft = Math.round((max_width - original_video.width) / 2) + 'px';
+                    original_video.style.paddingTop = "0.5%"
                     
                     broadcast(original_video,'FitSize.Finish',{
                        max_height: max_height,
