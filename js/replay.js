@@ -7,6 +7,7 @@ window.onload = function() {
 	var video_source = "/videos/session_01.mp4";
 	video_source = "https://s3-us-west-2.amazonaws.com/hello-mooc/dna_fix.mp4";
 
+
 	JerryVideo.fitVideoIntoBox(video, video_source);
 
 	var center_play_button = new Vue({
@@ -102,12 +103,18 @@ window.onload = function() {
 
 			var heatmap = h337.create({
 				container: document.getElementById('heatmapContainer'),
+				radius:80,
+				maxOpacity: 0.4,
+				minOpacity: 0,
+				blur: 1
 			});
 
 			video.addEventListener("nextFrame", function(e) {
 				console.log("currentFrame: " + e.detail.frame_index);
 				heatmap.setData(get_frame_func(e.detail.frame_index));
 			});
+			
+			window.MyHeatmap = window.MyHeatmap||heatmap;
 
 		};
 	}

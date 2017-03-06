@@ -16,6 +16,7 @@ var video_source = 'videos/session_01.mp4';
 video_source = "https://s3-us-west-2.amazonaws.com/hello-mooc/dna_fix.mp4";
 
 
+
 var player = new Player("my-video", video_source, {
     width: '100%'
 });
@@ -35,7 +36,7 @@ var postFaceCalibrate = function(){
     calibration_canvas.style.display = 'initial';
     calibration_canvas.width = window.innerWidth;
     calibration_canvas.height = window.innerHeight;
-    Calibrator(calibration_canvas,6,5);
+    Calibrator(calibration_canvas,1,2);
     calibration_canvas.addEventListener("calibration.finish",function(){
         calibration_canvas.style.display = 'none';
         postCalibrate();
