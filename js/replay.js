@@ -51,7 +51,8 @@ window.onload = function() {
 				});
 				console.log(dataset);
 				return {
-					data: dataset
+					data: dataset,
+					max: 5
 				}
 			}
 
@@ -106,7 +107,7 @@ window.onload = function() {
 				radius:80,
 				maxOpacity: 0.4,
 				minOpacity: 0,
-				blur: 1
+				//blur: 1,
 			});
 
 			video.addEventListener("nextFrame", function(e) {
