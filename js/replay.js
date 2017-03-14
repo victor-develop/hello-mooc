@@ -3,12 +3,17 @@ window.onload = function() {
 	var video = document.querySelector("#v");
 	video.controls = false;
 	video.addEventListener("FitSize.Finish", OnVideoReady);
-
-	var video_source = "/videos/session_01.mp4";
-	video_source = "https://s3-us-west-2.amazonaws.com/hello-mooc/dna_fix.mp4";
-
-
-	JerryVideo.fitVideoIntoBox(video, video_source);
+	$.ajax({
+		type: "GET",
+		url: "/get_video",
+		data: {
+			video_id: Url.queryString("video_id")
+		},
+		success: function (response) {
+			var video_source = JSON.parse(response).url;
+			JerryVideo.fitVideoIntoBox(video, video_source);
+		}
+	});
 
 	var center_play_button = new Vue({
 		el: "#center_play_button",
@@ -68,7 +73,7 @@ window.onload = function() {
 				// type of data we are expecting in return:
 				dataType: 'json',
 				data: {
-					video_id: "1"
+					video_id: Url.queryString("video_id")
 				},
 				success: function(data) {
 					console.log(data);

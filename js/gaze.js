@@ -50,7 +50,7 @@ var Gaze = function(context, player) {
             type: "POST",
             url: "post_user_gaze_video",
             data: {
-                video_id: "1",
+                video_id: Url.queryString("video_id"),
                 user_id: "1",
                 gazes: JSON.stringify(thisGaze.series)
             }

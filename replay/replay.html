@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Replay</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="/node_modules/urljs/src/url.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.2/fetch.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+	<script src="/node_modules/heatmap.js/build/heatmap.min.js"></script>
+	<script src="/node_modules/microevent/microevent.js"></script>
+	<script src="/js/broadcast.js"></script>
+	<script src="/js/JerryVideo.js"></script>
+	<script src="/js/random_heatmap_data.js"></script>
+	<script src="/js/replay.js"></script>
+
+	<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+	<!--[if lte IE 8]>
+	    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-old-ie-min.css">
+	<![endif]-->
+	<!--[if gt IE 8]><!-->
+	<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css">
+	<!--<![endif]-->
+
+	<link rel="stylesheet" href="/css/heatmap_player.css" type="text/css" />
+	<link rel="stylesheet" href="/css/replay.css" type="text/css" />
+
+	<!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+
+</head>
+
+<body>
+			<video width="480"  id=v > 
+						
+			</video>
+			<div id="heatmapContainerWrapper">
+				<!--<div id="player">-->
+				<!--	<div class="timeline-wrapper">-->
+				<!--		<button v-on:click="play_pause">{{player.playOrPause}}</button>-->
+				<!--		<div class="heatmap-timeline">-->
+							<!--<div class="time-point" style="left: 10.2564%;"></div>-->
+				<!--			<span>{{player.currentTime}}</span>-->
+				<!--		</div>-->
+						
+						<div id="center_play_button" v-on:click="play_pause" class="play-button-outer">
+							<div class="play-button" ></div>
+						</div>
+						
+				<!--	</div>-->
+				<!--</div>-->
+				
+				
+
+								
+				<div id="heatmapContainer" class="heatmap"></div>
+				
+			</div>	
+</body>
+
+</html>

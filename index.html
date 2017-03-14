@@ -1,48 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <link href="node_modules/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
-    <link href="css/app.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>HelloMOOC</title>
+    <title>Content</title>
 </head>
-
 <body>
-    <div class="post-calibration-canvas">
-        <div class="videoContainer">
-            <video id="my-video" class="" controls preload="auto" >
-                   <!--poster="http://www.jiaojianli.com/wp-content/uploads/2016/08/MOOC_7.jpg" -->
-        
-                <!--<source src="videos/session_01x.mp4" type='video/mp4'>-->
-            </video>
+    <h1>Play Content</h1>
+    <table id="content">
+        <thead>
+            <tr>
+                <th>Video ID</th>
+                <th>Video Name</th>
+                <th>Length</th>
+            </tr>
+        </thead>
+        <tbody>
 
-        </div>
-    </div>
-    <div id="faceCalibration">
-        <span class="close"><i class="fa fa-close fa-2x" aria-hidden="true"></i></span>
-        <h2 class="faceCalibration-tips">
-            Please adjust your head a little bit until the greenmask is on your face properly, <br>and then you may click the "X" to continue (you are free to move your head then);
-        </h2>
-    </div>
-
-    <div>
-        <canvas id="calibration_canvas">
-            
-        </canvas>
-    </div>
-
+        </tbody>
+    </table>
     <script src="node_modules/jquery/dist/jquery.js"></script>
-    <script src="node_modules/video.js/dist/video.js"></script>
-    <script src="node_modules/webgazer/build/webgazer.js"></script>
-    <script src="js/broadcast.js"></script>
-    <script src="js/JerryVideo.js"></script>
-    <script src="js/context.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/gaze.js"></script>
-    <script src="js/calibrator.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/content.js"></script>
 </body>
-
 </html>

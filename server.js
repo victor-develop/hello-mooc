@@ -130,22 +130,23 @@ router.get("/get_all_gaze_video", function (request, response) {
   });
 })
 
-router.get("/get_video_scale", function (request, response) {
+router.get("/get_video", function (request, response) {
   var video_id = request.query.video_id;
-  var screen_width = request.query.screen_width;
-  var screen_height = request.query.screen_height;
 
   MongoClient.connect(db_url, function(err, db) {
     db.collection("videos").findOne({"video_id": video_id}, function (err, video) {
-      var video_width = video.width;
-      var video_height = video.height;
-      var scale = Math.min(parseFloat(screen_height)/parseFloat(video_height), parseFloat(screen_width)/parseFloat(video_width))
-      response.send(JSON.stringify({
-        "video_id": video_id,
-        "scale": scale,
-        "width": video_width,
-        "height": video_height,
-      }))
+      response.send(JSON.stringify(video))
+    });
+    db.close();
+  });
+})
+
+
+router.get("/get_video_list", function (request, response) {
+
+  MongoClient.connect(db_url, function(err, db) {
+    db.collection("videos").find({}).toArray(function (err, videos) {
+      response.send(JSON.stringify(videos))
     });
     db.close();
   });
