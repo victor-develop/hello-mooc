@@ -32,14 +32,20 @@ router.post("/post_user_gaze_video", function (request, response) {
   var video_id = request.body.video_id;
   var user_id = request.body.user_id;
   var gazes = JSON.parse(request.body.gazes);
-  
-  console.log(gazes);
 
+  var gaze_video = {
+    "video_id": video_id,
+    "user_id": user_id,
+    "gazes": gazes
+  }
+  //console.log(gazes);
 
   MongoClient.connect(db_url, function(err, db) {
 
+    db.collection("user_gaze_videos").insertOne(gaze_video);
+
     gazes.forEach(function (gaze_frame) {
-      var time = gaze_frame.time;
+      var time = parseInt(gaze_frame.time);
       db.collection("all_gaze_frames").updateOne(
           {"video_id": video_id, "time": time},
           {

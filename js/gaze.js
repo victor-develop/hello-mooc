@@ -18,7 +18,7 @@ var Gaze = function(context, player) {
     function saveGaze() {
         var currentGaze = context.getCurrentGaze();
         if (currentGaze) {
-            
+
             var current = {
                 time: parseInt(player.getCurrentTime() * 10),
                 gaze: CoordTranslator.screenToVideo({
@@ -33,10 +33,11 @@ var Gaze = function(context, player) {
             //    thisGaze.prev = current;
             //}
             // selection
-            if (!thisGaze.prev || parseInt(thisGaze.prev.time) < parseInt(current.time)) {
-                current.time = parseInt(current.time / 10)
+
+            //every 100 ms
+            if (!(thisGaze.series.length) || (thisGaze.series[thisGaze.series.length - 1]['time']) < parseInt(current.time)/10) {
+                current.time = parseInt(current.time)/10;
                 thisGaze.series.push(current);
-                thisGaze.prev = current;
             }
 
 
