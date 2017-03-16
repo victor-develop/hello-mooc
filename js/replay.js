@@ -15,20 +15,14 @@ window.onload = function() {
 		}
 	});
 
-	var center_play_button = new Vue({
-		el: "#center_play_button",
-		methods: {
-			play_pause: function() {
-
-				if (video.paused) {
-					video.play();
-				}
-				else {
-					video.pause();
-				}
-			}
+	function play_pause() {
+		if (video.paused) {
+			video.play();
 		}
-	})
+		else {
+			video.pause();
+		}
+	}
 
 	JerryVideo.makeNextFrameBroadcast(video);
 
@@ -42,6 +36,33 @@ window.onload = function() {
 		else {
 			real_replay();
 		}
+
+		document.getElementById("player").style.visibility = "initial";
+		var top_player = new Vue({
+			el: "#player",
+			data: {
+				player: {
+					playOrPause: "PLAY",
+					currentTime: 0
+				},
+				duration: parseInt(video.duration)
+			},
+			methods:{
+				play_pause:function(){
+					play_pause();
+					if(!video.paused){
+						this.player.playOrPause = "PAUSE";
+					}
+					else{
+						this.player.playOrPause = "PLAY";
+					}
+				},
+				set_frame:function(n){
+					this.paly_pause();
+					video.currentTime = n;
+				}
+			}
+		});
 
 
 		function real_replay() {
@@ -115,14 +136,18 @@ window.onload = function() {
 				//blur: 1,
 			});
 
-			video.addEventListener("nextFrame", function(e) {
+			video.addEventListener("nextFrame", setHeatmapFrame);
+			
+			function setHeatmapFrame(e){
 				console.log("currentFrame: " + e.detail.frame_index);
-				heatmap.setData(get_frame_func(e.detail.frame_index));
-			});
+				heatmap.setData(get_frame_func(e.detail.frame_index));				
+			}
 			
 			window.MyHeatmap = window.MyHeatmap||heatmap;
 
 		};
 	}
+	
+	window.V =video;
 
 }

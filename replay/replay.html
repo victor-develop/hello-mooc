@@ -30,6 +30,16 @@
 	<!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
+  
+  <style type="text/css">
+  	#player{
+  		visibility:hidden;
+  	}
+  	
+  	#center_play_button{
+  		visibility:hidden;
+  	}
+  </style>
 
 </head>
 
@@ -38,20 +48,19 @@
 						
 			</video>
 			<div id="heatmapContainerWrapper">
-				<!--<div id="player">-->
-				<!--	<div class="timeline-wrapper">-->
-				<!--		<button v-on:click="play_pause">{{player.playOrPause}}</button>-->
-				<!--		<div class="heatmap-timeline">-->
-							<!--<div class="time-point" style="left: 10.2564%;"></div>-->
-				<!--			<span>{{player.currentTime}}</span>-->
-				<!--		</div>-->
-						
-						<div id="center_play_button" v-on:click="play_pause" class="play-button-outer">
-							<div class="play-button" ></div>
+						<div id="player">
+							<div class="timeline-wrapper">
+								<button v-on:click="play_pause">{{player.playOrPause}}</button>
+								<div  class="heatmap-timeline">
+									<div v-for="nthFrame in duration" class="time-point"  
+									     v-bind:style="{ left: ((nthFrame/duration)*100) + '%' }" 
+									     v-on:click = "set_frame(nthFrame)"
+									></div>
+								</div>
+							</div>
 						</div>
 						
-				<!--	</div>-->
-				<!--</div>-->
+
 				
 				
 

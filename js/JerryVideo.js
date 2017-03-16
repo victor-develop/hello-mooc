@@ -63,8 +63,15 @@
                 options = options || {};
 
                 var original_video = video_dom_element;
+                
+                //to control this function runs for only ONCE
+                var VIDEO_READY = false;
 
                 original_video.addEventListener("canplay", function setUp() {
+                    
+                    if(VIDEO_READY){
+                        return true;
+                    }
 
                     var max_height = options.max_height || window.innerHeight * 0.98; //prevent a little scroll in browser
                     var max_width = options.max_width || window.innerWidth * 0.98; //prevent a little scroll in browser
@@ -100,6 +107,8 @@
 
                     original_video.style.paddingLeft = Math.round((max_width - original_video.width) / 2) + 'px';
                     original_video.style.paddingTop = "0.5%"
+                    
+                    VIDEO_READY = true;
                     
                     broadcast(original_video,'FitSize.Finish',{
                        max_height: max_height,
