@@ -56,9 +56,12 @@ window.onload = function() {
 					else{
 						this.player.playOrPause = "PLAY";
 					}
+					return video.paused;
 				},
 				set_frame:function(n){
-					this.paly_pause();
+					if(!this.play_pause()){
+						this.play_pause();
+					}
 					video.currentTime = n;
 				}
 			}
