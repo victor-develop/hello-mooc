@@ -44,6 +44,17 @@
         calibration_canvas.width = window.innerWidth;
         calibration_canvas.height = window.innerHeight;
         Calibrator(calibration_canvas,24,10);
+        var PredictionLog = window.PredictionLog = [];
+        calibration_canvas.addEventListener("calibration.hit",function CalculatePrecision(event) {
+            var set_point = event.detail;
+            var guess_point = context.getCurrentGaze();
+            var distance = DistanceCalculator.getDistance(set_point, guess_point);
+            PredictionLog.push({
+                set_point:set_point,
+                guess_point: guess_point,
+                distance:distance
+            });
+        });
         calibration_canvas.addEventListener("calibration.finish",function(){
             calibration_canvas.style.display = 'none';
             postCalibrate();

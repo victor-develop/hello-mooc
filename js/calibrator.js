@@ -109,6 +109,7 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 current_point_index++;
                 draw(current_point_index);
+                broadcast(canvas,"calibration.hit",mousePos);
                 return true;
             }
             return false;
