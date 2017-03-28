@@ -37,6 +37,7 @@ window.onload = function() {
 			real_replay();
 		}
 
+		//set up ui: the player
 		document.getElementById("player").style.visibility = "initial";
 		var top_player = new Vue({
 			el: "#player",
