@@ -1,0 +1,765 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Sample Echarts</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.5.0/echarts.min.js" integrity="sha256-bzPD6OwNncEtFsrTqz0qARnMDulttpMN/zzdjxcjTBM=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+    
+        var sample = [{
+            "set_point": {
+                "x": 624,
+                "y": 126
+            },
+            "guess_point": {
+                "x": 410,
+                "y": 102,
+                "all": [{
+                    "x": 410,
+                    "y": 102
+                }]
+            },
+            "distance": 46372
+        }, {
+            "set_point": {
+                "x": 608,
+                "y": 442
+            },
+            "guess_point": {
+                "x": 572,
+                "y": 403,
+                "all": [{
+                    "x": 572,
+                    "y": 403
+                }]
+            },
+            "distance": 2817
+        }, {
+            "set_point": {
+                "x": 586,
+                "y": 56
+            },
+            "guess_point": {
+                "x": 615,
+                "y": 125,
+                "all": [{
+                    "x": 615,
+                    "y": 125
+                }]
+            },
+            "distance": 5602
+        }, {
+            "set_point": {
+                "x": 610,
+                "y": 224
+            },
+            "guess_point": {
+                "x": 609,
+                "y": 223,
+                "all": [{
+                    "x": 609,
+                    "y": 223
+                }]
+            },
+            "distance": 2
+        }, {
+            "set_point": {
+                "x": 602,
+                "y": 774
+            },
+            "guess_point": {
+                "x": 635,
+                "y": 636,
+                "all": [{
+                    "x": 635,
+                    "y": 636
+                }]
+            },
+            "distance": 20133
+        }, {
+            "set_point": {
+                "x": 598,
+                "y": 302
+            },
+            "guess_point": {
+                "x": 597,
+                "y": 302,
+                "all": [{
+                    "x": 597,
+                    "y": 302
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 602,
+                "y": 678
+            },
+            "guess_point": {
+                "x": 602,
+                "y": 677,
+                "all": [{
+                    "x": 602,
+                    "y": 677
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 606,
+                "y": 576
+            },
+            "guess_point": {
+                "x": 606,
+                "y": 575,
+                "all": [{
+                    "x": 606,
+                    "y": 575
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 612,
+                "y": 714
+            },
+            "guess_point": {
+                "x": 611,
+                "y": 714,
+                "all": [{
+                    "x": 611,
+                    "y": 714
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 622,
+                "y": 376
+            },
+            "guess_point": {
+                "x": 670,
+                "y": 217,
+                "all": [{
+                    "x": 670,
+                    "y": 217
+                }]
+            },
+            "distance": 27585
+        }, {
+            "set_point": {
+                "x": 614,
+                "y": 514
+            },
+            "guess_point": {
+                "x": 594,
+                "y": 581,
+                "all": [{
+                    "x": 594,
+                    "y": 581
+                }]
+            },
+            "distance": 4889
+        }, {
+            "set_point": {
+                "x": 950,
+                "y": 114
+            },
+            "guess_point": {
+                "x": 1131,
+                "y": 15,
+                "all": [{
+                    "x": 1131,
+                    "y": 15
+                }]
+            },
+            "distance": 42562
+        }, {
+            "set_point": {
+                "x": 956,
+                "y": 428
+            },
+            "guess_point": {
+                "x": 882,
+                "y": 304,
+                "all": [{
+                    "x": 882,
+                    "y": 304
+                }]
+            },
+            "distance": 20852
+        }, {
+            "set_point": {
+                "x": 972,
+                "y": 58
+            },
+            "guess_point": {
+                "x": 972,
+                "y": 57,
+                "all": [{
+                    "x": 972,
+                    "y": 57
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 968,
+                "y": 202
+            },
+            "guess_point": {
+                "x": 936,
+                "y": 223,
+                "all": [{
+                    "x": 936,
+                    "y": 223
+                }]
+            },
+            "distance": 1465
+        }, {
+            "set_point": {
+                "x": 960,
+                "y": 770
+            },
+            "guess_point": {
+                "x": 980,
+                "y": 699,
+                "all": [{
+                    "x": 980,
+                    "y": 699
+                }]
+            },
+            "distance": 5441
+        }, {
+            "set_point": {
+                "x": 958,
+                "y": 292
+            },
+            "guess_point": {
+                "x": 1037,
+                "y": 541,
+                "all": [{
+                    "x": 1037,
+                    "y": 541
+                }]
+            },
+            "distance": 68242
+        }, {
+            "set_point": {
+                "x": 958,
+                "y": 694
+            },
+            "guess_point": {
+                "x": 825,
+                "y": 623,
+                "all": [{
+                    "x": 825,
+                    "y": 623
+                }]
+            },
+            "distance": 22730
+        }, {
+            "set_point": {
+                "x": 956,
+                "y": 594
+            },
+            "guess_point": {
+                "x": 955,
+                "y": 593,
+                "all": [{
+                    "x": 955,
+                    "y": 593
+                }]
+            },
+            "distance": 2
+        }, {
+            "set_point": {
+                "x": 952,
+                "y": 702
+            },
+            "guess_point": {
+                "x": 966,
+                "y": 476,
+                "all": [{
+                    "x": 966,
+                    "y": 476
+                }]
+            },
+            "distance": 51272
+        }, {
+            "set_point": {
+                "x": 964,
+                "y": 340
+            },
+            "guess_point": {
+                "x": 956,
+                "y": 362,
+                "all": [{
+                    "x": 956,
+                    "y": 362
+                }]
+            },
+            "distance": 548
+        }, {
+            "set_point": {
+                "x": 952,
+                "y": 532
+            },
+            "guess_point": {
+                "x": 952,
+                "y": 531,
+                "all": [{
+                    "x": 952,
+                    "y": 531
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 1392,
+                "y": 118
+            },
+            "guess_point": {
+                "x": 1391,
+                "y": 117,
+                "all": [{
+                    "x": 1391,
+                    "y": 117
+                }]
+            },
+            "distance": 2
+        }, {
+            "set_point": {
+                "x": 1402,
+                "y": 436
+            },
+            "guess_point": {
+                "x": 1401,
+                "y": 436,
+                "all": [{
+                    "x": 1401,
+                    "y": 436
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 1388,
+                "y": 42
+            },
+            "guess_point": {
+                "x": 1387,
+                "y": 42,
+                "all": [{
+                    "x": 1387,
+                    "y": 42
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 1394,
+                "y": 224
+            },
+            "guess_point": {
+                "x": 1393,
+                "y": 224,
+                "all": [{
+                    "x": 1393,
+                    "y": 224
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 1384,
+                "y": 760
+            },
+            "guess_point": {
+                "x": 1250,
+                "y": 862,
+                "all": [{
+                    "x": 1250,
+                    "y": 862
+                }]
+            },
+            "distance": 28360
+        }, {
+            "set_point": {
+                "x": 1400,
+                "y": 274
+            },
+            "guess_point": {
+                "x": 1454,
+                "y": 336,
+                "all": [{
+                    "x": 1454,
+                    "y": 336
+                }]
+            },
+            "distance": 6760
+        }, {
+            "set_point": {
+                "x": 1384,
+                "y": 680
+            },
+            "guess_point": {
+                "x": 1309,
+                "y": 740,
+                "all": [{
+                    "x": 1309,
+                    "y": 740
+                }]
+            },
+            "distance": 9225
+        }, {
+            "set_point": {
+                "x": 1386,
+                "y": 586
+            },
+            "guess_point": {
+                "x": 1309,
+                "y": 610,
+                "all": [{
+                    "x": 1309,
+                    "y": 610
+                }]
+            },
+            "distance": 6505
+        }, {
+            "set_point": {
+                "x": 1378,
+                "y": 718
+            },
+            "guess_point": {
+                "x": 1346,
+                "y": 768,
+                "all": [{
+                    "x": 1346,
+                    "y": 768
+                }]
+            },
+            "distance": 3524
+        }, {
+            "set_point": {
+                "x": 1388,
+                "y": 364
+            },
+            "guess_point": {
+                "x": 1349,
+                "y": 308,
+                "all": [{
+                    "x": 1349,
+                    "y": 308
+                }]
+            },
+            "distance": 4657
+        }, {
+            "set_point": {
+                "x": 1384,
+                "y": 524
+            },
+            "guess_point": {
+                "x": 1384,
+                "y": 524,
+                "all": [{
+                    "x": 1384,
+                    "y": 524
+                }]
+            },
+            "distance": 0
+        }, {
+            "set_point": {
+                "x": 804,
+                "y": 126
+            },
+            "guess_point": {
+                "x": 770,
+                "y": 217,
+                "all": [{
+                    "x": 770,
+                    "y": 217
+                }]
+            },
+            "distance": 9437
+        }, {
+            "set_point": {
+                "x": 824,
+                "y": 448
+            },
+            "guess_point": {
+                "x": 823,
+                "y": 448,
+                "all": [{
+                    "x": 823,
+                    "y": 448
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 808,
+                "y": 54
+            },
+            "guess_point": {
+                "x": 680,
+                "y": 315,
+                "all": [{
+                    "x": 680,
+                    "y": 315
+                }]
+            },
+            "distance": 84505
+        }, {
+            "set_point": {
+                "x": 816,
+                "y": 202
+            },
+            "guess_point": {
+                "x": 826,
+                "y": 363,
+                "all": [{
+                    "x": 826,
+                    "y": 363
+                }]
+            },
+            "distance": 26021
+        }, {
+            "set_point": {
+                "x": 810,
+                "y": 778
+            },
+            "guess_point": {
+                "x": 1061,
+                "y": 293,
+                "all": [{
+                    "x": 1061,
+                    "y": 293
+                }]
+            },
+            "distance": 298226
+        }, {
+            "set_point": {
+                "x": 804,
+                "y": 288
+            },
+            "guess_point": {
+                "x": 1004,
+                "y": 294,
+                "all": [{
+                    "x": 1004,
+                    "y": 294
+                }]
+            },
+            "distance": 40036
+        }, {
+            "set_point": {
+                "x": 826,
+                "y": 678
+            },
+            "guess_point": {
+                "x": 986,
+                "y": 206,
+                "all": [{
+                    "x": 986,
+                    "y": 206
+                }]
+            },
+            "distance": 248384
+        }, {
+            "set_point": {
+                "x": 816,
+                "y": 566
+            },
+            "guess_point": {
+                "x": 816,
+                "y": 565,
+                "all": [{
+                    "x": 816,
+                    "y": 565
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 816,
+                "y": 718
+            },
+            "guess_point": {
+                "x": 713,
+                "y": 772,
+                "all": [{
+                    "x": 713,
+                    "y": 772
+                }]
+            },
+            "distance": 13525
+        }, {
+            "set_point": {
+                "x": 820,
+                "y": 364
+            },
+            "guess_point": {
+                "x": 820,
+                "y": 363,
+                "all": [{
+                    "x": 820,
+                    "y": 363
+                }]
+            },
+            "distance": 1
+        }, {
+            "set_point": {
+                "x": 820,
+                "y": 508
+            },
+            "guess_point": {
+                "x": 819,
+                "y": 507,
+                "all": [{
+                    "x": 819,
+                    "y": 507
+                }]
+            },
+            "distance": 2
+        }, {
+            "set_point": {
+                "x": 94,
+                "y": 120
+            },
+            "guess_point": {
+                "x": 15,
+                "y": 330,
+                "all": [{
+                    "x": 15,
+                    "y": 330
+                }]
+            },
+            "distance": 50341
+        }, {
+            "set_point": {
+                "x": 102,
+                "y": 430
+            },
+            "guess_point": {
+                "x": 244,
+                "y": 383,
+                "all": [{
+                    "x": 244,
+                    "y": 383
+                }]
+            },
+            "distance": 22373
+        }, {
+            "set_point": {
+                "x": 112,
+                "y": 42
+            },
+            "guess_point": {
+                "x": 61,
+                "y": -34,
+                "all": [{
+                    "x": 61,
+                    "y": -34
+                }]
+            },
+            "distance": 8377
+        }, {
+            "set_point": {
+                "x": 116,
+                "y": 214
+            },
+            "guess_point": {
+                "x": 192,
+                "y": 60,
+                "all": [{
+                    "x": 192,
+                    "y": 60
+                }]
+            },
+            "distance": 29492
+        }, {
+            "set_point": {
+                "x": 124,
+                "y": 764
+            },
+            "guess_point": {
+                "x": -78,
+                "y": 665,
+                "all": [{
+                    "x": -78,
+                    "y": 665
+                }]
+            },
+            "distance": 50605
+        }, {
+            "set_point": {
+                "x": 98,
+                "y": 282
+            },
+            "guess_point": {
+                "x": -14,
+                "y": 518,
+                "all": [{
+                    "x": -14,
+                    "y": 518
+                }]
+            },
+            "distance": 68240
+        }];   
+        var x_data = sample.map(function(pos, index){
+            return index;
+        });
+        var y_data = sample.map(function(pos, index) {
+            return Math.sqrt(pos.distance);
+        });
+
+        
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'Prediction Report'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: x_data
+            },
+            yAxis: {},
+            series: [{
+                name: 'distance',
+                type: 'line',
+                data: y_data
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        
+        
+        
+        //------------------------
+
+    </script>
+</body>
+
+</html>
