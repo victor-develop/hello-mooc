@@ -1,0 +1,73 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Sample Echarts</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div id="container">
+        Loading...
+    </div>
+
+
+    <script type="text/javascript">
+    
+    
+       function render(data){
+           var trs = data.records.map(function(rec){
+              var a = '<a href="'+
+                        '/get-calibration?time='+rec.time+'id='+rec._id+'">'+
+                      'view'
+                      '</a>';
+                      
+              var tr = `<tr>
+                            <td>`+rec._id+`</td>
+                            <td>`+rec.name+`</td>
+                            <td>`+(new Date(rec.time)).toGMTString()+`</td>
+                            <td>`+a+`</th>               
+                        </tr>`;
+              return tr;
+           });
+           
+           
+           var content = ` <h1>Calibration Content</h1>
+                            <table id="content">
+                                <thead>
+                                    <tr>
+                                        <th>Clibration ID</th>
+                                        <th>Calibration Name</th>
+                                        <th>Calibration Time</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                `+trs.join(" ")+`
+                                </tbody>
+                            </table>`;
+          document.getElementById("container").innerHTML = content;
+       }
+       
+       $(document).ready(function(){
+          $.getJSON('/list-calibration').
+            then(function(records){
+                console.log(records);
+                render({
+                    records:records
+                });
+            }).fail(function(err){
+                alert("cannot ajax list calibrations!");
+            });
+       });
+    </script>
+</body>
+
+</html>

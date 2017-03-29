@@ -43,22 +43,48 @@
         calibration_canvas.style.display = 'initial';
         calibration_canvas.width = window.innerWidth;
         calibration_canvas.height = window.innerHeight;
-        Calibrator(calibration_canvas,24,10);
-        var PredictionLog = window.PredictionLog = [];
-        calibration_canvas.addEventListener("calibration.hit",function CalculatePrecision(event) {
-            var set_point = event.detail;
-            var guess_point = context.getCurrentGaze();
-            var distance = DistanceCalculator.getDistance(set_point, guess_point);
-            PredictionLog.push({
-                set_point:set_point,
-                guess_point: guess_point,
-                distance:distance
-            });
-        });
+        var gridWidth = 24, gridHeight = 10;
+        Calibrator(calibration_canvas,gridWidth,gridHeight);
         calibration_canvas.addEventListener("calibration.finish",function(){
             calibration_canvas.style.display = 'none';
             postCalibrate();
-        })
+        });
+        
+        function setUpPredictionLog(){
+            var PredictionLog = window.PredictionLog = [];
+            var CalculatePrecision = function CalculatePrecision(event) {
+                var set_point = event.detail;
+                var guess_point = context.getCurrentGaze();
+                var distance = DistanceCalculator.getDistance(set_point, guess_point);
+                PredictionLog.push({
+                    set_point:set_point,
+                    guess_point: guess_point,
+                    distance:distance
+                });
+            }
+            calibration_canvas.addEventListener("calibration.hit",CalculatePrecision);
+            
+            var saveAndShut = function saveAndShut(){
+                var user_name = prompt("Please enter your name");
+                $.post("/save-calibration",
+                  {
+                    record:{
+                        log: PredictionLog,
+                        gridWidth: gridWidth,
+                        gridHeight: gridHeight,
+                        name: user_name,
+                        time: Date.now()
+                    }
+                  }
+                ).
+                fail(function(){
+                    alert("unable to save the prediction log!");
+                });
+                calibration_canvas.removeEventListener("calibration.hit",CalculatePrecision);
+                calibration_canvas.removeEventListener("calibration.finish",saveAndShut);
+            }
+            calibration_canvas.addEventListener("calibration.finish",saveAndShut);            
+        }
     }
 
     $("#faceCalibration").on('click', 'span', function () {

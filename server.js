@@ -158,6 +158,27 @@ router.get("/get_video_list", function (request, response) {
   });
 })
 
+router.post("/save-calibration",function(request, response) {
+    console.log(request.body.record.log[3].guess_point.all);
+    MongoClient.connect(db_url).
+    then(function(db){
+      return db.collection('calibrations');
+    }).
+    then(function(calibrations){
+      calibrations.insertOne(request.body.record);
+    });
+    response.send("success");
+});
+
+router.get("/list-calibration", function (request, response) {
+  MongoClient.connect(db_url, function(err, db) {
+    db.collection("calibrations").find({}).toArray(function (err, records) {
+      response.json(records);
+    });
+    db.close();
+  });
+})
+
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Hello MOOC Project");
