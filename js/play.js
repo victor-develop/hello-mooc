@@ -43,7 +43,9 @@
         calibration_canvas.style.display = 'initial';
         calibration_canvas.width = window.innerWidth;
         calibration_canvas.height = window.innerHeight;
-        var gridWidth = 25, gridHeight = 20;
+        var gridWidth = Url.queryString("gridWidth"), gridHeight = Url.queryString("gridHeight");
+        gridWidth = gridWidth||25; 
+        gridHeight = gridHeight||20;
         Calibrator(calibration_canvas,gridWidth,gridHeight);
         setUpPredictionLog();
         calibration_canvas.addEventListener("calibration.finish",function(){
