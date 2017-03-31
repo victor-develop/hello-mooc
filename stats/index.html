@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sample Echarts</title>
+    <title>Statistics</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
@@ -25,14 +25,14 @@
        function render(data){
            var trs = data.records.map(function(rec){
               var a = '<a href="'+
-                        '/get-calibration?time='+rec.time+'id='+rec._id+'">'+
+                        '/stats/view-calibration-stat.html?time='+rec.time+'&id='+rec._id+'">'+
                       'view'
                       '</a>';
                       
               var tr = `<tr>
                             <td>`+rec._id+`</td>
                             <td>`+rec.name+`</td>
-                            <td>`+(new Date(rec.time)).toGMTString()+`</td>
+                            <td>`+(new Date(parseInt(rec.time))).toGMTString()+`</td>
                             <td>`+a+`</th>               
                         </tr>`;
               return tr;

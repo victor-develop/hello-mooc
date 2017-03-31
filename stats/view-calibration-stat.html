@@ -1,0 +1,78 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Statistics - One Calibration</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/node_modules/urljs/src/url.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.5.0/echarts.min.js" integrity="sha256-bzPD6OwNncEtFsrTqz0qARnMDulttpMN/zzdjxcjTBM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div id="container">
+        Loading...
+    </div>
+
+
+    <script type="text/javascript">
+    
+           function render(data){
+               var content = `<h1>`+data.id+`</h1>`+
+                              `<div id="main" style="width: 600px;height:400px;"></div>`;
+               document.getElementById("container").innerHTML = content;
+               postRender(data);
+           }
+           
+           function postRender(data){
+            var sample = data.sample;
+            var x_data = sample.map(function(pos, index){
+                return index;
+            });
+            var y_data = sample.map(function(pos, index) {
+                return Math.sqrt(pos.distance);
+            });
+
+            var myChart = echarts.init(document.getElementById('main'));
+    
+            var option = {
+                title: {
+                    text: 'Prediction Report'
+                },
+                tooltip: {},
+                xAxis: {
+                    data: x_data
+                },
+                yAxis: {},
+                series: [{
+                    name: 'distance',
+                    type: 'line',
+                    data: y_data
+                }]
+            };
+
+            myChart.setOption(option);           
+       }
+       
+       $(document).ready(function(){
+           var id = Url.queryString("id");
+          $.getJSON('/get-calibration',{id:id}).
+            then(function(records){
+                render({
+                    sample:records[0].log,
+                    id:id
+                })
+            }).fail(function(err){
+                alert("cannot ajax list calibrations!");
+            });
+       });
+    </script>
+</body>
+
+</html>

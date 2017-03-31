@@ -7,7 +7,7 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
+var MongoObjectId = require('mongodb').ObjectID;
 var events = require('events');
 
 //
@@ -159,15 +159,15 @@ router.get("/get_video_list", function (request, response) {
 })
 
 router.post("/save-calibration",function(request, response) {
-    console.log(request.body.record.log[3].guess_point.all);
+    console.log(request.body.record.time);
     MongoClient.connect(db_url).
     then(function(db){
       return db.collection('calibrations');
     }).
     then(function(calibrations){
       calibrations.insertOne(request.body.record);
+      response.send("success");
     });
-    response.send("success");
 });
 
 router.get("/list-calibration", function (request, response) {
@@ -178,6 +178,15 @@ router.get("/list-calibration", function (request, response) {
     db.close();
   });
 })
+
+router.get("/get-calibration", function (request, response) {
+  MongoClient.connect(db_url, function(err, db) {
+    db.collection("calibrations").find({"_id":new MongoObjectId(request.query.id)}).toArray(function (err, record) {
+      response.json(record);
+    });
+    db.close();
+  });
+});
 
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();

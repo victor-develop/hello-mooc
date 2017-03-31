@@ -43,8 +43,9 @@
         calibration_canvas.style.display = 'initial';
         calibration_canvas.width = window.innerWidth;
         calibration_canvas.height = window.innerHeight;
-        var gridWidth = 24, gridHeight = 10;
+        var gridWidth = 25, gridHeight = 20;
         Calibrator(calibration_canvas,gridWidth,gridHeight);
+        setUpPredictionLog();
         calibration_canvas.addEventListener("calibration.finish",function(){
             calibration_canvas.style.display = 'none';
             postCalibrate();
@@ -66,6 +67,7 @@
             
             var saveAndShut = function saveAndShut(){
                 var user_name = prompt("Please enter your name");
+                var time = Date.now();
                 $.post("/save-calibration",
                   {
                     record:{
@@ -73,7 +75,7 @@
                         gridWidth: gridWidth,
                         gridHeight: gridHeight,
                         name: user_name,
-                        time: Date.now()
+                        time: time
                     }
                   }
                 ).
