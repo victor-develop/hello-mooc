@@ -70,13 +70,13 @@
                 var time = Date.now();
                 $.post("/save-calibration",
                   {
-                    record:{
+                    record:JSON.stringify({
                         log: PredictionLog,
                         gridWidth: gridWidth,
                         gridHeight: gridHeight,
                         name: user_name,
                         time: time
-                    }
+                    })
                   }
                 ).
                 fail(function(){

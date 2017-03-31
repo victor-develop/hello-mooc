@@ -24,8 +24,11 @@
     <script type="text/javascript">
     
            function render(data){
-               var content = `<h1>`+data.id+`</h1>`+
-                              `<div id="main" style="width: 600px;height:400px;"></div>`;
+               var content = `<h1>`+data.id+" | "+data.name+
+                                   " | "+data.gridWidth+
+                                   " * "+data.gridHeight+
+                             `</h1>`+
+                              `<div id="main" style="width: `+data.chart_width+`px;  height:`+data.chart_height+`px;"></div>`;
                document.getElementById("container").innerHTML = content;
                postRender(data);
            }
@@ -62,11 +65,18 @@
        
        $(document).ready(function(){
            var id = Url.queryString("id");
+           var chart_width = Url.queryString("width")||3000;
+           var chart_height = Url.queryString("height")||2000;
           $.getJSON('/get-calibration',{id:id}).
             then(function(records){
                 render({
                     sample:records[0].log,
-                    id:id
+                    id:id,
+                    name:records[0].name,
+                    gridHeight:records[0].gridHeight,
+                    gridWidth:records[0].gridWidth,
+                    chart_width: chart_width,
+                    chart_height: chart_height
                 })
             }).fail(function(err){
                 alert("cannot ajax list calibrations!");

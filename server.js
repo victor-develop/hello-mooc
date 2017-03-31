@@ -159,13 +159,12 @@ router.get("/get_video_list", function (request, response) {
 })
 
 router.post("/save-calibration",function(request, response) {
-    console.log(request.body.record.time);
     MongoClient.connect(db_url).
     then(function(db){
       return db.collection('calibrations');
     }).
     then(function(calibrations){
-      calibrations.insertOne(request.body.record);
+      calibrations.insertOne(JSON.parse(request.body.record));
       response.send("success");
     });
 });
