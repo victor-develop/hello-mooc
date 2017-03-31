@@ -52,7 +52,9 @@
                 xAxis: {
                     data: x_data
                 },
-                yAxis: {},
+                yAxis: {
+                    max:data.chart_max
+                },
                 series: [{
                     name: 'distance',
                     type: 'line',
@@ -65,6 +67,7 @@
        
        $(document).ready(function(){
            var id = Url.queryString("id");
+           var max = Url.queryString("max");
            var chart_width = Url.queryString("width")||3000;
            var chart_height = Url.queryString("height")||2000;
           $.getJSON('/get-calibration',{id:id}).
@@ -76,7 +79,8 @@
                     gridHeight:records[0].gridHeight,
                     gridWidth:records[0].gridWidth,
                     chart_width: chart_width,
-                    chart_height: chart_height
+                    chart_height: chart_height,
+                    chart_max: max
                 })
             }).fail(function(err){
                 alert("cannot ajax list calibrations!");

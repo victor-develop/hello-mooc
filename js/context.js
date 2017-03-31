@@ -10,7 +10,7 @@ var Context = function () {
     thisContext.isReady = false;
     thisContext.webgazer = webgazer;
     
-    var Tracker = 'js_feat';
+    var Tracker = window.tracker;
     
     thisContext.init = function () {
         

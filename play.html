@@ -37,14 +37,57 @@
     <script src="node_modules/urljs/src/url.min.js"></script>
     <script src="node_modules/video.js/dist/video.js"></script>
     <script src="js/DistanceCalculator.js"></script>
-    <script src="js/webgazer.js"></script>
-    <script src="js/broadcast.js"></script>
-    <script src="js/JerryVideo.js"></script>
-    <script src="js/context.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/gaze.js"></script>
-    <script src="js/calibrator.js"></script>
-    <script src="js/play.js"></script>
+    <script >
+        function loadJS(url) {
+            return new Promise(function(resolve, reject) {
+                var Script = document.createElement('script');
+                Script.setAttribute('src', url);
+                Script.setAttribute('type', 'text/javascript');
+                document.body.appendChild(Script);
+                resolve(Script);
+            });
+        }
+        
+        //dynamically load js files, in order to switch between clmtrackr and js_feat
+        loadJS("js/webgazer.js").
+        then(function switchWebgazer(){
+            var tracker = Url.queryString("tracker");
+            tracker = tracker||"js_feat"; //default to js_feat
+            if(window.tracker){
+                alert("variable conflict! window.tracker has been used");
+                throw "see alert";
+            }
+            window.tracker = tracker;
+            
+            if(tracker == "js_feat"){
+                return loadJS("js/webgazer.js");
+            }
+            else if(tracker =='clmtrackr'){
+                return loadJS("js/webgazer-clm.js");
+            }
+        }).
+        then(function(){
+            return loadJS("js/broadcast.js");
+        }).
+        then(function(){
+            return loadJS("js/JerryVideo.js");
+        }).
+        then(function(){
+            return loadJS("js/context.js");
+        }).
+        then(function(){
+            return loadJS("js/player.js");
+        }).
+        then(function(){
+            return loadJS("js/gaze.js");
+        }). 
+        then(function(){
+            return loadJS("js/calibrator.js");
+        }).
+        then(function(){
+            return loadJS("js/play.js");
+        });        
+    </script>
 </body>
 
 </html>
