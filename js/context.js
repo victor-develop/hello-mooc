@@ -9,11 +9,14 @@ var Context = function () {
     thisContext.clock = {};
     thisContext.isReady = false;
     thisContext.webgazer = webgazer;
+    
+    var Tracker = 'js_feat';
+    
     thisContext.init = function () {
         
         window.addEventListener("load",function SetWebGazer(){
             thisContext.webgazer.setRegression('ridge') /* currently must set regression and tracker */
-                .setTracker('js_feat')
+                .setTracker(Tracker)
                 .setGazeListener(function(data, clock) {
                        //console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
                        //console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
@@ -62,11 +65,16 @@ var Context = function () {
             function drawLoop() {
                 requestAnimFrame(drawLoop);
                 overlay.getContext('2d').clearRect(0, 0, width, height);
-                var currentEyes = webgazer.getTracker().getCurrentEyes();
+                
                 //console.log(currentEyes);
-                if (currentEyes) {
+                if (Tracker=='js_feat' && webgazer.getTracker().getCurrentEyes) {
+                    var currentEyes = webgazer.getTracker().getCurrentEyes();
                     overlay.getContext('2d').strokeRect(currentEyes.left.imagex, currentEyes.left.imagey, currentEyes.left.width, currentEyes.left.height);
                     overlay.getContext('2d').strokeRect(currentEyes.right.imagex, currentEyes.right.imagey, currentEyes.right.width, currentEyes.right.height);
+                }
+
+                if (Tracker=='clmtrackr' && cl.getCurrentPosition()) {
+                    cl.draw(overlay);
                 }
             }
             drawLoop();

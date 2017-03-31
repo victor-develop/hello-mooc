@@ -70,15 +70,16 @@
             var saveAndShut = function saveAndShut(){
                 var user_name = prompt("Please enter your name");
                 var time = Date.now();
-                $.post("/save-calibration",
-                  {
-                    record:JSON.stringify({
+                var record = JSON.stringify({
                         log: PredictionLog,
                         gridWidth: gridWidth,
                         gridHeight: gridHeight,
                         name: user_name,
                         time: time
-                    })
+                    });
+                $.post("/save-calibration",
+                  {
+                    record:record
                   }
                 ).
                 fail(function(){
