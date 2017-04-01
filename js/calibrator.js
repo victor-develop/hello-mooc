@@ -61,10 +61,13 @@
             });
         });
         
+        var outputPoints = flatten(positions);
+        shuffle(outputPoints)
+        
         return {
             x_step: X_step,
             y_step: Y_step,
-            points: flatten(positions)
+            points: outputPoints
         }
                   
     }
