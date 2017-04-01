@@ -171,7 +171,7 @@ router.post("/save-calibration",function(request, response) {
 
 router.get("/list-calibration", function (request, response) {
   MongoClient.connect(db_url, function(err, db) {
-    db.collection("calibrations").find({}).toArray(function (err, records) {
+    db.collection("calibrations").find({},{log:0}).toArray(function (err, records) {
       response.json(records);
     });
     db.close();
