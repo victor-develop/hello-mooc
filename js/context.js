@@ -69,19 +69,23 @@ var Context = function () {
                 //console.log(currentEyes);
                 if (Tracker=='js_feat' && webgazer.getTracker().getCurrentEyes) {
                     var currentEyes = webgazer.getTracker().getCurrentEyes();
-                    overlay.getContext('2d').strokeRect(currentEyes.left.imagex, currentEyes.left.imagey, currentEyes.left.width, currentEyes.left.height);
-                    overlay.getContext('2d').strokeRect(currentEyes.right.imagex, currentEyes.right.imagey, currentEyes.right.width, currentEyes.right.height);
+                    if(currentEyes.left){
+                      overlay.getContext('2d').strokeRect(currentEyes.left.imagex, currentEyes.left.imagey, currentEyes.left.width, currentEyes.left.height);
+                    }
+                    if(currentEyes.right){
+                      overlay.getContext('2d').strokeRect(currentEyes.right.imagex, currentEyes.right.imagey, currentEyes.right.width, currentEyes.right.height);
+                    }
                 }
 
                 if (Tracker=='clmtrackr' && cl.getCurrentPosition()) {
                     cl.draw(overlay);
                 }
             }
+
+            thisContext.isReady = true;            
             drawLoop();
 
-            $(video).hide();
-            $(overlay).hide();
-            thisContext.isReady = true;
+
 
         };
 

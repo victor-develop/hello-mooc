@@ -94,6 +94,7 @@
 
     $("#faceCalibration").on('click', 'span', function () {
         $("#faceCalibration").hide();
+        $("#faceCalibration").trigger("close.faceCalibration");
         postFaceCalibrate();
     })
 

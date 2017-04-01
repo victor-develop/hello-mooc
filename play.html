@@ -40,17 +40,21 @@
     <script >
         function loadJS(url) {
             return new Promise(function(resolve, reject) {
-                var Script = document.createElement('script');
-                Script.setAttribute('src', url);
-                Script.setAttribute('type', 'text/javascript');
-                document.body.appendChild(Script);
-                resolve(Script);
+                var domScript = document.createElement('script');
+                domScript.src = url;
+                domScript.onload = domScript.onreadystatechange = function () {
+                    if (!this.readyState || 'loaded' === this.readyState || 'complete' === this.readyState) {
+                        resolve(domScript);
+                        this.onload = this.onreadystatechange = null;
+                        this.parentNode.removeChild(this);
+                    }
+                }
+                document.getElementsByTagName('head')[0].appendChild(domScript);
             });
         }
         
         //dynamically load js files, in order to switch between clmtrackr and js_feat
-        loadJS("js/webgazer.js").
-        then(function switchWebgazer(){
+        (function switchWebgazer(){
             var tracker = Url.queryString("tracker");
             tracker = tracker||"js_feat"; //default to js_feat
             if(window.tracker){
@@ -65,7 +69,7 @@
             else if(tracker =='clmtrackr'){
                 return loadJS("js/webgazer-clm.js");
             }
-        }).
+        })().
         then(function(){
             return loadJS("js/broadcast.js");
         }).
