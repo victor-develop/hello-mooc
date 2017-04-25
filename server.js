@@ -169,6 +169,17 @@ router.post("/save-calibration",function(request, response) {
     });
 });
 
+router.post('save-training',function(request,response){
+    MongoClient.connect(db_url).
+    then(function(db){
+      return db.collection('trainings');
+    }).
+    then(function(calibrations){
+      calibrations.insertOne(JSON.parse(request.body.data));
+      response.send("success");
+    });  
+});
+
 router.get("/list-calibration", function (request, response) {
   MongoClient.connect(db_url, function(err, db) {
     db.collection("calibrations").find({},{log:0}).toArray(function (err, records) {
@@ -186,6 +197,8 @@ router.get("/get-calibration", function (request, response) {
     db.close();
   });
 });
+
+
 
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();

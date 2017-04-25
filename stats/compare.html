@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Compare</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/node_modules/urljs/src/url.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.5.0/echarts.min.js" integrity="sha256-bzPD6OwNncEtFsrTqz0qARnMDulttpMN/zzdjxcjTBM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 800px;height:500px;"></div>
+    <script type="text/javascript">
+    
+       $(document).ready(function(){
+           var ids = Url.queryString("ids");
+           var max = Url.queryString("max");
+           var chart_width = Url.queryString("width")||3000;
+           var chart_height = Url.queryString("height")||2000;
+           
+           
+           if(!ids){
+               throw "ids is a required param";
+           }
+           
+           var id_array = ids.split("_");
+           
+           var chart_data = [];
+           
+           var msgHub = $("#main");
+           
+           msgHub.on("data-unit:arrive",function(e,dataUnit){
+               chart_data.push(dataUnit);
+               if(chart_data.length == id_array.length){
+                   draw(chart_data);
+               }
+           });
+           
+           id_array.forEach(function(id){
+              $.getJSON('/get-calibration',{id:id}).
+                then(function(records){
+                    var sample = records[0].log;
+                    var calibration = {
+                        id:id,
+                        name:records[0].name,
+                        gridHeight:records[0].gridHeight,
+                        gridWidth:records[0].gridWidth,                        
+                    };
+                    calibration.x_data = getXdata(sample);
+                    calibration.y_data = getYdata(sample);
+                    
+                    msgHub.trigger("data-unit:arrive",calibration);
+                    
+                }).fail(function(err){
+                    alert("cannot ajax list calibrations! id:"+id);
+                });               
+           })
+           
+       });    
+
+
+        function getXdata(sample){
+            return sample.map(function(pos, index) {
+                return index;
+            });
+        }
+        
+        function getYdata(sample){
+            return sample.map(function(pos, index) {
+                return Math.sqrt(pos.distance);
+            });            
+        }
+        
+        function draw(data){
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = window.myChart = echarts.init(document.getElementById('main'));
+            
+            console.log(data);
+            
+            var x_data_max = data.reduce(function(acc,val){
+                if(acc.x_data.length > val.x_data.length){
+                    return acc;
+                }
+                else{
+                    return val;
+                }
+            }).
+            x_data;
+            
+            var series_data = data.map(function(calibration){
+                return {
+                    name: calibration.name,
+                    type: "line",
+                    data: calibration.y_data
+                }
+            });
+            
+            var legends_data = data.map(function(calibration){
+                return calibration.name;
+            });
+            
+            var max = Url.queryString("max");
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: 'Prediction Report'
+                },
+                legend: {
+                    data: legends_data,
+                    align: 'left'
+                },                
+                tooltip: {},
+                xAxis: {
+                    data: x_data_max
+                },
+                yAxis: {                    
+                    max:max,
+                    interval:200
+                },
+                series: series_data
+            };
+    
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);            
+        }
+
+
+
+
+
+
+        //------------------------
+    </script>
+</body>
+
+</html>

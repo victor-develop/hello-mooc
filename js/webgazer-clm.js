@@ -10618,7 +10618,7 @@ var mosseFilterResponses = function() {
         //third argument set to true so that we get event on 'capture' instead of 'bubbling'
         //this prevents a client using event.stopPropagation() preventing our access to the click
         document.addEventListener('click', clickListener, true);
-        document.addEventListener('mousemove', moveListener, true);
+        //document.addEventListener('mousemove', moveListener, true);
     };
 
     /**

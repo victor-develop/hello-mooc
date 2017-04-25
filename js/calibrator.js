@@ -25,8 +25,8 @@
         var horizontal_grids_count = gridWidth||7;
         var vertical_grids_count = gridHeight||7;
         
-        var X_step = parseInt(canvas.width/horizontal_grids_count);
-        var Y_step = parseInt(canvas.height/vertical_grids_count);
+        var X_step = (canvas.width/horizontal_grids_count);
+        var Y_step = (canvas.height/vertical_grids_count);
         
         var makePositions = function(step, bound){
             var positions = [];
@@ -61,7 +61,12 @@
             });
         });
         
-        var outputPoints = flatten(positions);
+        var outputPoints = flatten(positions).filter(function(pos){
+            if(canvas.width-pos.x < 20 || canvas.height-pos.y < 20){
+                return false;
+            }
+            return true;
+        });
         shuffle(outputPoints)
         
         return {
@@ -85,16 +90,20 @@
             
             var point = caliPoints.points[point_index];
             
+            var x_extend = caliPoints.x_step;
+            var y_extend = caliPoints.y_step;
+            
             //avoid to be too narrow a box
-            if((canvas.width - (point.x+caliPoints.x_step)) < caliPoints.x_step/2){
-                point.x -= caliPoints.x_step/2;
+            if((canvas.width - (point.x+caliPoints.x_step)) < 0){
+                x_extend = Math.max(canvas.width - (point.x),20);
             }
-            if((canvas.height- (point.y+caliPoints.y_step))<caliPoints.y_step){
-                point.y -= caliPoints.y_step/2;
+            if((canvas.height- (point.y+caliPoints.y_step))< 0){
+                y_extend = Math.max(canvas.height- (point.y),20);
             }
             
             ctx.fillStyle = "#71D4F5";
-            ctx.fillRect(point.x,point.y,caliPoints.x_step, caliPoints.y_step);
+            console.log(point.x+"|"+point.y+"|"+x_extend+"|"+ y_extend);
+            ctx.fillRect(point.x,point.y,x_extend, y_extend);
             ctx.fillStyle = "white";
             ctx.font = '14pt Calibri';
             ctx.fillText("click this box", point.x+(caliPoints.x_step/gridWidth), point.y+(caliPoints.y_step/gridHeight));
